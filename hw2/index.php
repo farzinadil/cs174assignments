@@ -6,11 +6,11 @@
 
 <?php
 function toppings() {
-    echo "<h1>Toppings</h1>";
+    echo "<h2>Toppings</h2>";
     $toppings = array("Pepperoni", "Cheese", "Hawaiian", "Meat Lovers", "Veggie");
     echo "<form action='index.php' method='post'>";
     for ($i = 0; $i < 5; $i++) {
-        echo "<input type='checkbox' name='topping' value='" . $toppings[$i] . "'>" . $toppings[$i] . "<br>";
+        echo "<input type='checkbox' name='topping[]' value='" . $toppings[$i] . "'>" . $toppings[$i] . "<br>";
     }
     echo "<input type='submit' name='page' value='detail'>";
     echo "</form>";
@@ -47,18 +47,19 @@ function menu() {
 
   //function to list details of pizzed selected
     function detail() {
-        echo "<h1>Detail</h1>";
-        //print toppings selected
-        echo "<h2>Toppings</h2>";
+        echo "<h2>Detail</h2>";
+        //print selected toppings from post
+        echo "<h3>Toppings</h3>";
         echo "<ul>";
-        echo "<li>" . $_POST['topping'] . "</li>";
+        foreach ($_POST['topping'] as $topping) {
+            echo "<li>" . $topping . "</li>";
+        }
         echo "</ul>";
-      
+        
     }
 
 $page = $_POST['page'];
-$topping = $_POST['topping'];
-$pst = $_POST;
+
 
 
 
