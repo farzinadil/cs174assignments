@@ -27,7 +27,7 @@ function menu() {
         echo "<td>$" . $price[$i] . "</td>";
         echo "<td>";
         for ($j = 0; $j < $popularity[$i]; $j++) {
-            echo "<img src='/htdocs/hearts.png'>";
+            echo "💗";
         }
         echo "</td>";
         //Unable to go to the delete page when clicking deleting button
