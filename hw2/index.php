@@ -31,12 +31,11 @@ function menu() {
         }
         echo "</td>";
         //Unable to go to the delete page when clicking deleting button
-        echo "<td>" . "<input type='submit' label='order' name='page' value='Edit'>" .
-            "<input type='submit' label='order' name='page' value='Delete'>" . "</td>";
+        echo "<td>" . "<input type='submit' name='page' value='Edit'>" .
+            "<input type='submit' name='page' value='Delete'>" . "</td>";
         echo "</tr>";
     }
     echo "</table></center>";
-
     echo "<center><input type='submit' label='order' name='page' value='Add Pie'></center>";
     echo "</form>";
 }
@@ -45,20 +44,43 @@ function menu() {
 function toppings() {
     echo "<h2>Pie Editor</h2>";
     //Need to add functionality to save pizza name and price into menu
-    echo "<input size='25' type='text' label='Pizza Name' placeholder='Enter Pizza Name'>" .
-        "<input size='4' type='text' label='Pizza Price' placeholder='Price'>";
     $toppings = array("Pepperoni", "Cheese", "Green pepper", "Pineapple", "Olives");
     echo "<form action='index.php' method='post'>";
+    echo "<input size='25' type='text' name='pizza' label='Pizza Name' placeholder='Enter Pizza Name'>" .    
+    "<input size='4' type='text' name='price' label='Pizza Price' placeholder='Price'>" . 
+    "<br><br>";
     for ($i = 0; $i < 5; $i++) {
         echo "<input type='checkbox' name='topping[]' value='" . $toppings[$i] . "'>" . $toppings[$i] . "<br>";
     }
     echo "<input type='submit' name='page' value='Create'>";
     echo "</form>";
+
+
+     //print post
+     echo "<pre>";
+     print_r($_POST);
+     echo "</pre>";
 }
 
 //function to list details of pizza selected
 function detail() {
     echo "<h2>Detail</h2>";
+    //pizza name from post
+    $pizza = $_POST['pizza'];
+    echo "<h3>Pizza Name</h3>";
+    echo "<p>" . $pizza . "</p>";
+    echo "<h3>Price</h3>";
+    //price from post
+    $price = $_POST['price'];
+    echo "<p>$" . $price . "</p>";
+    
+
+  
+
+    //draw pizza
+    echo "<svg height='100' width='100'>
+    <circle cx='50' cy='50' r='40' stroke='black' stroke-width='3' fill='red' />
+    </svg>";
     //print selected toppings from post
     echo "<h3>Toppings</h3>";
     echo "<ul>";
@@ -66,6 +88,16 @@ function detail() {
         echo "<li>" . $topping . "</li>";
     }
     echo "</ul>";
+
+    //back button to return to menu
+    echo "<form action='index.php' method='post'>";
+    echo "<input type='submit'>";
+    echo "</form>";
+
+   
+
+
+
 }
 
 function delete() {
