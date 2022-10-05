@@ -56,10 +56,6 @@ function toppings() {
     echo "</form>";
 
 
-     //print post
-     echo "<pre>";
-     print_r($_POST);
-     echo "</pre>";
 }
 
 //function to list details of pizza selected
@@ -105,7 +101,7 @@ function delete() {
     echo "Are you sure you want to delete the bookmark: (INSERT PIZZA NAME)?";
     echo "<form action='index.php' method='post'>";
     //Need to add Confirm and Cancel actual functionality
-    echo "<input type='submit' label='page' value='Confirm'>" .
+    echo "<input type='submit' label='page' value='Confirm'>" . 
         "<input type='submit' label='page' value=''Cancel'>";
     echo "</form>";
 }
@@ -121,11 +117,11 @@ switch ($page) {
     case "Create":
         echo detail();
         break;
-    case "Add Pie" || "Edit":
-        echo toppings();
-        break;
     case "Delete":
         echo delete();
+        break;
+    case "Add Pie" || "Edit":
+        echo toppings();
         break;
     case "Confirm" || "Cancel":
         echo menu();
