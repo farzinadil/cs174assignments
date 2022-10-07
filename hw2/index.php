@@ -23,15 +23,16 @@ function getEntries() {
 }
 
 function processNewPie($pizza) {
-    $name = (isset($_REQUEST['name'])) ?
-        filter_var($_REQUEST['name'], FILTER_SANITIZE_STRING) : "";
-    $price = (isset($_REQUEST['price'])) ?
-        filter_var($_REQUEST['price'], FILTER_SANITIZE_NUMBER_INT) : "";
-    if ($name == "" || $price == "") {
-        return $pizza;
+    //add new pizza to array with name, price, list of toppings, and view count
+    if (isset($_REQUEST['name']) && isset($_REQUEST['price']) && isset($_REQUEST['topping'])) {
+        $pizza[] = [
+            "name" => $_REQUEST['name'],
+            "price" => $_REQUEST['price'],
+            "topping" => $_REQUEST['topping'],
+            "viewCount" => 0
+        ];
+        file_put_contents(PIE_FILE, serialize($pizza));
     }
-    $pizza = array_merge([$name => $price], $pizza);
-    file_put_contents(PIE_FILE, serialize($pizza));
     return $pizza;
 }
 
@@ -95,17 +96,18 @@ function menuView($pizza) {
             </tr>
             <?php
             if (!empty($pizza)) {
-                foreach($pizza["PIE_FILE"] as $name => $price) {
+                foreach($pizza["PIE_FILE"] as $name => $price["price"]) {
                     ?><tr>
                         <td><a href="index.php?a=detail&name=<?=urlencode($name)?>">
                                 <?=$name ?></a></td>
-                        <td>$<?=$price ?></td>
+                        <td>$<?=$price?></td>
                         <td>💗</td>
                         <td>
                             <button><a href="index.php?a=edit&name=<?=urlencode($name)?>">Edit</a></button>
                             <button><a href="index.php?a=delete&name=<?=urlencode($name)?>">Delete</a></button>
                         </td>
-                    </tr><?php
+                    </tr>
+                    <?php
                  }
             }?>
         </table>
