@@ -47,8 +47,17 @@ function detailController() {
 
 }
 
+//delete pizza from menu
 function deleteController() {
-
+    $name = (isset($_REQUEST['name'])) ?
+        filter_var($_REQUEST['name'], FILTER_SANITIZE_STRING) : "";
+    $entries = getEntries();
+    if (isset($entries[$name])) {
+        unset($entries[$name]);
+        file_put_contents(PIE_FILE, serialize($entries));
+    }
+    $layout = (isset($_REQUEST['f']) && $_REQUEST['f'] == "html") ? $_REQUEST['f'] . "Layout" : "htmlLayout";
+    $layout($entries, "menuView");
 }
 
 function htmlLayout($pizza, $view) {
