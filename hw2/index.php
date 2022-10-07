@@ -96,11 +96,12 @@ function menuView($pizza) {
             </tr>
             <?php
             if (!empty($pizza)) {
-                foreach($pizza["PIE_FILE"] as $name => $price["price"]) {
+                foreach($pizza["PIE_FILE"] as $key => $value) {
+                    $name = $value["name"];
                     ?><tr>
                         <td><a href="index.php?a=detail&name=<?=urlencode($name)?>">
-                                <?=$name ?></a></td>
-                        <td>$<?=$price?></td>
+                                <?=$name?></a></td>
+                        <td>$<?=$value["price"]?></td>
                         <td>💗</td>
                         <td>
                             <button><a href="index.php?a=edit&name=<?=urlencode($name)?>">Edit</a></button>
