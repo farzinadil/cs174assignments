@@ -36,6 +36,41 @@ function processNewPie($pizza) {
     return $pizza;
 }
 
+function processDeletePie($pizza) {
+    //delete pizza from file
+    $newPizza = [];
+    if (isset($_REQUEST['name'])) {
+        $name = $_REQUEST['name'];
+        for ($i = 0; $i < count($pizza); $i++) {
+            if ($pizza[$i]['name'] == $name) {
+                //add pizza to new array
+                array_push($newPizza, $pizza[$i]);
+
+            }
+        }
+        file_put_contents(PIE_FILE, serialize($newPizza));
+    };
+    /*
+    if (isset($_REQUEST['name'])) {
+        $name = $_REQUEST['name'];
+        $pizza = array_filter($pizza, function ($pizza) use ($name) {
+            return $pizza['name'] != $name;
+        });
+        file_put_contents(PIE_FILE, serialize($pizza));
+    }
+    */
+
+    // clear file
+    /*
+    file_put_contents(PIE_FILE, serialize([]));
+    return [];
+    */
+
+
+
+}
+
+
 function editController() {
     $pizza["NAME"] = (isset($_REQUEST['name'])) ?
         filter_var($_REQUEST['name'], FILTER_SANITIZE_STRING) : "";
@@ -53,17 +88,12 @@ function detailController() {
     $layout($pizza, "detailView");
 }
 
-//delete pizza from menu
 function deleteController() {
     $name = (isset($_REQUEST['name'])) ?
         filter_var($_REQUEST['name'], FILTER_SANITIZE_STRING) : "";
     $entries = getEntries();
-    if (isset($entries[$name])) {
-        unset($entries[$name]);
-        file_put_contents(PIE_FILE, serialize($entries));
-    }
     $layout = (isset($_REQUEST['f']) && $_REQUEST['f'] == "html") ? $_REQUEST['f'] . "Layout" : "htmlLayout";
-    $layout($entries, "menuView");
+    $layout($name, "deleteView");
 }
 
 function htmlLayout($pizza, $view) {
@@ -174,7 +204,34 @@ function editView($pizza) {
 }
 
 function deleteView($data) {
-       ?><?php
+
+    // buttons to confirm or cancel deletion
+    // if confirmed, redirect to menu page with delete action
+    // if cancelled, redirect to menu page 
+    ?>
+    <h1><a href="index.php">Original Pizza Place</a></h1>
+    <h2>Delete Pie</h2>
+    <form>
+    <div>
+        <p>Are you sure you want to delete <?=$data?>?</p>
+        
+        <button><a href="index.php<?=processDeletePie($data)?>">Confirm</a></button>
+        <button><a href="index.php">Cancel</a></button>
+    </div>
+    </form><?php
+            /*
+
+        ?> <h1><a href="index.php">Original Pizza Place</a></h1>
+        <h2>Delete Pie</h2>
+        <form>
+        <div>
+            <p>Are you sure you want to delete this pie?</p>
+            <button>Yes</button>
+            <button>No</button>
+        </div>
+        </form><?php
+        */
+
 
 }
 
