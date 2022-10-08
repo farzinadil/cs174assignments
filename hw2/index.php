@@ -42,7 +42,7 @@ function processDeletePie($pizza) {
     if (isset($_REQUEST['name'])) {
         $name = $_REQUEST['name'];
         for ($i = 0; $i < count($pizza); $i++) {
-            if ($pizza[$i]['name'] != $name) {
+            if ($pizza[$i]['name'] == $name) {
                 //add pizza to new array
                 array_push($newPizza, $pizza[$i]);
 
