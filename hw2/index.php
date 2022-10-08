@@ -39,7 +39,9 @@ function processNewPie($pizza) {
 function editController() {
     $pizza["NAME"] = (isset($_REQUEST['name'])) ?
         filter_var($_REQUEST['name'], FILTER_SANITIZE_STRING) : "";
-    $entries = getEntries();
+    $pizza["PRICE"] = (isset($_REQUEST['price'])) ?
+        filter_var($_REQUEST['price'], FILTER_SANITIZE_NUMBER_INT) : "";
+    $pizza["PIE_FILE"] = getEntries();
     $layout = (isset($_REQUEST['f']) && $_REQUEST['f'] == "html") ? $_REQUEST['f'] . "Layout" : "htmlLayout";
     $layout($pizza, "editView");
 }
@@ -47,7 +49,6 @@ function editController() {
 function detailController() {
     $pizza["NAME"] = (isset($_REQUEST['name'])) ?
         filter_var($_REQUEST['name'], FILTER_SANITIZE_STRING) : "";
-    $entries = getEntries();
     $layout = (isset($_REQUEST['f']) && $_REQUEST['f'] == "html") ? $_REQUEST['f'] . "Layout" : "htmlLayout";
     $layout($pizza, "detailView");
 }
@@ -69,9 +70,7 @@ function htmlLayout($pizza, $view) {
     ?><!DOCTYPE html>
 <html>
     <head>
-        <title>Original Pizza Place <?php if (!empty($pizza['NAME'])) {
-        echo ":" . $pizza['NAME'];
-    } ?></title>
+        <title>Original Pizza Place</title>
     </head>
     <body>
     <?php
@@ -97,7 +96,7 @@ function menuView($pizza) {
             <?php
             session_start();
             if (!empty($pizza)) {
-                foreach($pizza["PIE_FILE"] as $key => $value) {
+                foreach($pizza["PIE_FILE"] as $value) {
                     $name = $value["name"];
                     ?><tr>
                         <td><a href="index.php?a=detail&name=<?=urlencode($name)?>">
@@ -134,22 +133,48 @@ function editView($pizza) {
         "Green Peppers", "Ham", "Mushrooms", "Anchovies");
     ?>
     <h1><a href="index.php">Original Pizza Place</a></h1>
-    <h2>Pie Editor</h2>
-    <form>
-    <input size='25' type='text' name='name' placeholder='Enter Pizza Name' required>
-    <input size='10' type='text' name='price' placeholder='Pizza Price' required>
-    <h3>Toppings: </h3>
-    <div>
-    <?php
-    foreach ($toppings as $topping) {
-        echo "<input type='checkbox' name='topping[]' value='" . $topping . "'>" . $topping . "<br>";
-    }
-    ?></div>
-    <button>Create</button></form><?php
+    <h2>Pie Editor</h2><form><?php
+    if (empty($pizza["NAME"])) {?>
+            <input size='25' type='text' name='name' placeholder='Enter Pizza Name' required>
+            <input size='10' type='text' name='price' placeholder='Pizza Price' required>
+            <h3>Toppings: </h3>
+            <div><?php
+                foreach ($toppings as $topping) {
+                    echo "<input type='checkbox' name='topping[]' value='" . $topping . "'>" . $topping . "<br>";
+                } ?><button>Create</button></div><?php
+    } else {
+        print($pizza["NAME"]);
+        echo ": <input size='10' type='text' name='price' placeholder='Pizza Price' required></p>";
+        ?>
+            <h3>Toppings</h3>
+            <div><?php
+                $temp = array();
+                foreach($pizza["PIE_FILE"] as $pie) {
+                    if ($pizza["NAME"] == $pie['name']) {
+                        $temp = $pie['topping'];
+                        break;
+                    }
+                }
+                foreach ($toppings as $topping) {
+                    $checked = false;
+                    for ($j = 0; $j < count($temp); $j++) {
+                        if ($topping == $temp[$j]) {
+                            echo "<input type='checkbox' name='topping[]' value='" . $topping . "' checked>" . $topping . "<br>";
+                            $checked = true;
+                            break;
+                        }
+                    }
+                    if (!$checked) {
+                        echo "<input type='checkbox' name='topping[]' value='" . $topping . "'>" . $topping . "<br>";
+                    }
+                }
+                ?><button>Save</button></div><?php
+    }?>
+    </form><?php
 }
 
 function deleteView($data) {
-       ?> <?php
+       ?><?php
 
 }
 
