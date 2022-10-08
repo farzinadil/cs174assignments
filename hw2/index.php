@@ -45,7 +45,11 @@ function editController() {
 }
 
 function detailController() {
-
+    $pizza["NAME"] = (isset($_REQUEST['name'])) ?
+        filter_var($_REQUEST['name'], FILTER_SANITIZE_STRING) : "";
+    $entries = getEntries();
+    $layout = (isset($_REQUEST['f']) && $_REQUEST['f'] == "html") ? $_REQUEST['f'] . "Layout" : "htmlLayout";
+    $layout($pizza, "detailView");
 }
 
 //delete pizza from menu
@@ -95,6 +99,7 @@ function menuView($pizza) {
                 <th>Actions</th>
             </tr>
             <?php
+            session_start();
             if (!empty($pizza)) {
                 foreach($pizza["PIE_FILE"] as $key => $value) {
                     $name = $value["name"];
@@ -102,7 +107,19 @@ function menuView($pizza) {
                         <td><a href="index.php?a=detail&name=<?=urlencode($name)?>">
                                 <?=$name?></a></td>
                         <td>$<?=$value["price"]?></td>
-                        <td>💗</td>
+                        <td><?php 
+                            if (isset($_SESSION[$name]['views'])) {
+                                $views = $_SESSION[$name]['views'];
+                                $log5Views = log($views, 5);
+                                for ($i = 0; $i < $log5Views; $i++) {
+                                    echo "💗 ";
+                                }
+                            }
+                            else {
+                                echo "💔";
+                            }
+                            ?>
+                        </td>
                         <td>
                             <button><a href="index.php?a=edit&name=<?=urlencode($name)?>">Edit</a></button>
                             <button><a href="index.php?a=delete&name=<?=urlencode($name)?>">Delete</a></button>
@@ -123,8 +140,8 @@ function editView($pizza) {
     <h1><a href="index.php">Original Pizza Place</a></h1>
     <h2>Pie Editor</h2>
     <form>
-    <input size='25' type='text' name='name' placeholder='Enter Pizza Name'>
-        <input size='4' type='text' name='price' placeholder='Price'>
+    <input size='25' type='text' name='name' placeholder='Enter Pizza Name' required>
+    <input size='10' type='text' name='price' placeholder='Pizza Price' required>
     <h3>Toppings: </h3>
     <div>
     <?php
@@ -141,5 +158,21 @@ function deleteView($data) {
 }
 
 function detailView($data) {
-        ?> <?php
+    
+    session_start();
+   
+    $name = $data["NAME"];  
+    if(isset($_SESSION[$name]['views']))
+        $_SESSION[$name]['views'] = $_SESSION[$name]['views']+1;
+    else
+         $_SESSION[$name]['views'] = 1;
+        
+     echo "views = ".$_SESSION[$name]['views'];
+    ?>
+
+    <h1><a href="index.php">Original Pizza Place</a></h1>
+    
+    <?php
 }
+
+?>
