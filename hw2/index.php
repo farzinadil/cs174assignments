@@ -69,10 +69,6 @@ function htmlLayout($pizza, $view) {
     ?><!DOCTYPE html>
 <html>
     <head>
-        <style>
-            h1 {text-align: center;}
-            h2 {text-align: center;}
-        </style>
         <title>Original Pizza Place <?php if (!empty($pizza['NAME'])) {
         echo ":" . $pizza['NAME'];
     } ?></title>
@@ -107,7 +103,7 @@ function menuView($pizza) {
                         <td><a href="index.php?a=detail&name=<?=urlencode($name)?>">
                                 <?=$name?></a></td>
                         <td>$<?=$value["price"]?></td>
-                        <td><?php 
+                        <td><?php
                             if (isset($_SESSION[$name]['views'])) {
                                 $views = $_SESSION[$name]['views'];
                                 $log5Views = log($views, 5);
@@ -121,8 +117,8 @@ function menuView($pizza) {
                             ?>
                         </td>
                         <td>
-                            <button><a href="index.php?a=edit&name=<?=urlencode($name)?>">Edit</a></button>
-                            <button><a href="index.php?a=delete&name=<?=urlencode($name)?>">Delete</a></button>
+                            <button><a style="text-decoration: none; color: inherit;" href="index.php?a=edit&name=<?=urlencode($name)?>">✏️</a></button>
+                            <button><a style="text-decoration: none; color: inherit;" href="index.php?a=delete&name=<?=urlencode($name)?>">🗑️</a></button>
                         </td>
                     </tr>
                     <?php
@@ -130,7 +126,7 @@ function menuView($pizza) {
             }?>
         </table>
     </div>
-        <button><a href="index.php?a=edit">Add Pie</a></button><?php
+        <button><a style="text-decoration: none; color: inherit; text-align-all: center;" href="index.php?a=edit">Add Pie</a></button><?php
 }
 
 function editView($pizza) {
@@ -158,20 +154,20 @@ function deleteView($data) {
 }
 
 function detailView($data) {
-    
+
     session_start();
-   
-    $name = $data["NAME"];  
+
+    $name = $data["NAME"];
     if(isset($_SESSION[$name]['views']))
         $_SESSION[$name]['views'] = $_SESSION[$name]['views']+1;
     else
          $_SESSION[$name]['views'] = 1;
-        
+
      echo "views = ".$_SESSION[$name]['views'];
     ?>
 
     <h1><a href="index.php">Original Pizza Place</a></h1>
-    
+
     <?php
 }
 
