@@ -39,8 +39,6 @@ function processNewPie($pizza) {
 function editController() {
     $pizza["NAME"] = (isset($_REQUEST['name'])) ?
         filter_var($_REQUEST['name'], FILTER_SANITIZE_STRING) : "";
-    $pizza["PRICE"] = (isset($_REQUEST['price'])) ?
-        filter_var($_REQUEST['price'], FILTER_SANITIZE_NUMBER_INT) : "";
     $pizza["PIE_FILE"] = getEntries();
     $layout = (isset($_REQUEST['f']) && $_REQUEST['f'] == "html") ? $_REQUEST['f'] . "Layout" : "htmlLayout";
     $layout($pizza, "editView");
@@ -49,6 +47,7 @@ function editController() {
 function detailController() {
     $pizza["NAME"] = (isset($_REQUEST['name'])) ?
         filter_var($_REQUEST['name'], FILTER_SANITIZE_STRING) : "";
+    $pizza["PIE_FILE"] = getEntries();
     $layout = (isset($_REQUEST['f']) && $_REQUEST['f'] == "html") ? $_REQUEST['f'] . "Layout" : "htmlLayout";
     $layout($pizza, "detailView");
 }
@@ -84,7 +83,6 @@ function menuView($pizza) {
     ?>
     <h1><a href="index.php">Original Pizza Place</a></h1>
     <h2>Menu</h2>
-    <form>
     <div>
         <table>
             <tr>
@@ -178,22 +176,131 @@ function deleteView($data) {
 
 }
 
-function detailView($data) {
-
+function detailView($pizza) {
     session_start();
-
-    $name = $data["NAME"];
+    $name = $pizza["NAME"];
     if(isset($_SESSION[$name]['views']))
         $_SESSION[$name]['views'] = $_SESSION[$name]['views']+1;
     else
          $_SESSION[$name]['views'] = 1;
-
-     echo "views = ".$_SESSION[$name]['views'];
     ?>
-
     <h1><a href="index.php">Original Pizza Place</a></h1>
-
     <?php
+    echo "<h2>" . $pizza["NAME"] . "</h2>";
+    $price = ""; $toppings = array();
+    foreach ($pizza["PIE_FILE"] as $pie) {
+        if ($pizza["NAME"] == $pie['name']) {
+            $price = $pie['price'];
+            $toppings = $pie['topping'];
+            break;
+        }
+    }
+    echo "<h3>Price: $" . $price . "</h3>";
+    echo "<ul>";
+        for ($i = 0; $i < count($toppings); $i++) {
+            echo "<li>" . $toppings[$i] . "</li>";
+        }
+    echo "</ul>";
+    ?>
+    <style>
+    #pie {
+        position: absolute;
+        top: 400px;
+        left: 24px;
+        width: 200px;
+        height: 200px;
+        -webkit-border-radius: 25px;
+        -moz-border-radius: 25px;
+        border: 5px solid black;
+        border-radius: 150px;
+        background: bisque;
+    }
+    #red_sauce {
+        top: 415px;
+        left: 39px;
+        position: absolute;
+        width: 180px;
+        height: 180px;
+        border-radius: 150px;
+        background: darkred;
+    }
+    #cheese {
+        top: 423px;
+        left: 47px;
+        position: absolute;
+        width: 165px;
+        height: 165px;
+        border-radius: 150px;
+        background: lightyellow;
+    }
+    #pepperoni {
+        top: 455px;
+        left: 75px;
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        border-radius: 150px;
+        background: red;
+    }
+    #ham {
+        font-size: 40px;
+        top: 445px;
+        left: 145px;
+        position: absolute;
+    }
+    #pineapple {
+        font-size: 45px;
+        top: 505px;
+        left: 155px;
+        position: absolute;
+    }
+    #green_pepper {
+        font-size: 40px;
+        top: 505px;
+        left: 62px;
+        position: absolute;
+    }
+    #mushroom {
+        font-size: 40px;
+        top: 535px;
+        left: 110px;
+        position: absolute;
+    }
+    #anchovies {
+        font-size: 40px;
+        top: 483px;
+        left: 110px;
+        position: absolute;
+    }
+    </style>
+    <div id="pie"></div>
+    <?php
+    foreach ($toppings as $topping) {
+        if ($topping == "Red Sauce") {
+            echo "<div id='red_sauce'></div>";
+        }
+        if ($topping == "Mozzarella") {
+            echo "<div id='cheese'></div>";
+        }
+        if ($topping == "Pepperoni") {
+            echo "<div id='pepperoni'></div>";
+        }
+        if ($topping == "Pineapple") {
+            echo "<div id='pineapple'>🍍</div>";
+        }
+        if ($topping == "Green Peppers") {
+            echo "<div id='green_pepper'>🫑</div>";
+        }
+        if ($topping == "Ham") {
+            echo "<div id='ham'>🍖</div>";
+        }
+        if ($topping == "Mushrooms") {
+            echo "<div id='mushroom'>🍄</div>";
+        }
+        if ($topping == "Anchovies") {
+            echo "<div id='anchovies'>🐟</div>";
+        }
+    }
 }
 
 ?>
