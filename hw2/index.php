@@ -38,21 +38,33 @@ function processNewPie($pizza) {
 
 function processDeletePie($pizza) {
     //delete pizza from file
-    /*
+    $newPizza = [];
     if (isset($_REQUEST['name'])) {
         $name = $_REQUEST['name'];
         for ($i = 0; $i < count($pizza); $i++) {
-            if ($pizza[$i]['name'] == $name) {
-                unset($pizza[$i]);
+            if ($pizza[$i]['name'] != $name) {
+                //add pizza to new array
+                array_push($newPizza, $pizza[$i]);
+
             }
         }
+        file_put_contents(PIE_FILE, serialize($newPizza));
+    };
+    /*
+    if (isset($_REQUEST['name'])) {
+        $name = $_REQUEST['name'];
+        $pizza = array_filter($pizza, function ($pizza) use ($name) {
+            return $pizza['name'] != $name;
+        });
         file_put_contents(PIE_FILE, serialize($pizza));
     }
-    return $pizza;
     */
+
     // clear file
+    /*
     file_put_contents(PIE_FILE, serialize([]));
     return [];
+    */
 
 
 
