@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="878e088f-fdce-4367-9111-714b5a49c5f0" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/controllers/Controller.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/Model.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/View.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/elements/Element.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/helpers/Helper.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +44,7 @@
       <workItem from="1666413278839" duration="1131000" />
       <workItem from="1666471553325" duration="2611000" />
       <workItem from="1666477524496" duration="194000" />
-      <workItem from="1666477729942" duration="323000" />
+      <workItem from="1666477729942" duration="723000" />
     </task>
     <servers />
   </component>
