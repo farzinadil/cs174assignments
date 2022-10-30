@@ -1,5 +1,5 @@
 <?php
-// create mysql database with php table policy wuth fields title, agent email, duration, description
+// create mysql database with php table policy with fields title, agent email, duration, description
 
 // connect to mysql
 $server_name = "localhost";
@@ -27,7 +27,9 @@ id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 title VARCHAR(30) NOT NULL,
 agent_email VARCHAR(50),
 duration VARCHAR(50),
-description VARCHAR(50)
+description VARCHAR(50),
+views INT(2),
+types VARCHAR(30)
 )";
 
 
