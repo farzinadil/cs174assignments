@@ -1,10 +1,9 @@
 <?php
 
-class Type extends Controller
+class Policy extends Controller
 {
-
     public function __construct() {
-        echo 'On Type Controller';
+        echo 'On Policy Controller';
         $this->view("View");
     }
 

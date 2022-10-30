@@ -2,7 +2,7 @@
 
 class Landing extends Controller
 {
-    public function index() {
-
+    public function __construct() {
+        $this->view("View");
     }
 }
