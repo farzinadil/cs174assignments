@@ -1,4 +1,3 @@
-
 <?php
 const PIE_FILE = "Pizzas.txt";
 $activity = (isset($_REQUEST['a']) && in_array($_REQUEST['a'],
@@ -96,16 +95,16 @@ function deleteController() {
 }
 
 function htmlLayout($pizza, $view) {
-    ?><!DOCTYPE html>
+?><!DOCTYPE html>
 <html>
-    <head>
-        <title>Original Pizza Place</title>
-    </head>
-    <body>
-    <?php
-    $view($pizza);
-    ?>
-    </body>
+<head>
+    <title>Original Pizza Place</title>
+</head>
+<body>
+<?php
+$view($pizza);
+?>
+</body>
 </html><?php
 }
 
@@ -127,33 +126,33 @@ function menuView($pizza) {
                 foreach($pizza["PIE_FILE"] as $value) {
                     $name = $value["name"];
                     ?><tr>
-                        <td><a href="index.php?a=detail&name=<?=urlencode($name)?>">
-                                <?=$name?></a></td>
-                        <td>$<?=$value["price"]?></td>
-                        <td><?php
-                            if (isset($_SESSION[$name]['views'])) {
-                                $views = $_SESSION[$name]['views'];
-                                $log5Views = log($views, 5);
-                                for ($i = 0; $i < $log5Views; $i++) {
-                                    echo "💗 ";
-                                }
+                    <td><a href="index.php?a=detail&name=<?=urlencode($name)?>">
+                            <?=$name?></a></td>
+                    <td>$<?=$value["price"]?></td>
+                    <td><?php
+                        if (isset($_SESSION[$name]['views'])) {
+                            $views = $_SESSION[$name]['views'];
+                            $log5Views = log($views, 5);
+                            for ($i = 0; $i < $log5Views; $i++) {
+                                echo "💗 ";
                             }
-                            else {
-                                echo "💔";
-                            }
-                            ?>
-                        </td>
-                        <td>
-                            <button><a style="text-decoration: none; color: inherit;" href="index.php?a=edit&name=<?=urlencode($name)?>">✏️</a></button>
-                            <button><a style="text-decoration: none; color: inherit;" href="index.php?a=delete&name=<?=urlencode($name)?>">🗑️</a></button>
-                        </td>
+                        }
+                        else {
+                            echo "💔";
+                        }
+                        ?>
+                    </td>
+                    <td>
+                        <button><a style="text-decoration: none; color: inherit;" href="index.php?a=edit&name=<?=urlencode($name)?>">✏️</a></button>
+                        <button><a style="text-decoration: none; color: inherit;" href="index.php?a=delete&name=<?=urlencode($name)?>">🗑️</a></button>
+                    </td>
                     </tr>
                     <?php
-                 }
+                }
             }?>
         </table>
     </div>
-        <button><a style="text-decoration: none; color: inherit; text-align-all: center;" href="index.php?a=edit">Add Pie</a></button><?php
+    <button><a style="text-decoration: none; color: inherit; text-align-all: center;" href="index.php?a=edit">Add Pie</a></button><?php
 }
 
 function editView($pizza) {
@@ -163,40 +162,40 @@ function editView($pizza) {
     <h1><a href="index.php">Original Pizza Place</a></h1>
     <h2>Pie Editor</h2><form><?php
     if (empty($pizza["NAME"])) {?>
-            <input size='25' type='text' name='name' placeholder='Enter Pizza Name' required>
-            <input size='10' type='text' name='price' placeholder='Pizza Price' required>
-            <h3>Toppings: </h3>
-            <div><?php
-                foreach ($toppings as $topping) {
-                    echo "<input type='checkbox' name='topping[]' value='" . $topping . "'>" . $topping . "<br>";
-                } ?><button>Create</button></div><?php
+        <input size='25' type='text' name='name' placeholder='Enter Pizza Name' required>
+        <input size='10' type='text' name='price' placeholder='Pizza Price' required>
+        <h3>Toppings: </h3>
+        <div><?php
+        foreach ($toppings as $topping) {
+            echo "<input type='checkbox' name='topping[]' value='" . $topping . "'>" . $topping . "<br>";
+        } ?><button>Create</button></div><?php
     } else {
         print($pizza["NAME"]);
         echo ": <input size='10' type='text' name='price' placeholder='Pizza Price' required></p>";
         ?>
-            <h3>Toppings</h3>
-            <div><?php
-                $temp = array();
-                foreach($pizza["PIE_FILE"] as $pie) {
-                    if ($pizza["NAME"] == $pie['name']) {
-                        $temp = $pie['topping'];
-                        break;
-                    }
+        <h3>Toppings</h3>
+        <div><?php
+        $temp = array();
+        foreach($pizza["PIE_FILE"] as $pie) {
+            if ($pizza["NAME"] == $pie['name']) {
+                $temp = $pie['topping'];
+                break;
+            }
+        }
+        foreach ($toppings as $topping) {
+            $checked = false;
+            for ($j = 0; $j < count($temp); $j++) {
+                if ($topping == $temp[$j]) {
+                    echo "<input type='checkbox' name='topping[]' value='" . $topping . "' checked>" . $topping . "<br>";
+                    $checked = true;
+                    break;
                 }
-                foreach ($toppings as $topping) {
-                    $checked = false;
-                    for ($j = 0; $j < count($temp); $j++) {
-                        if ($topping == $temp[$j]) {
-                            echo "<input type='checkbox' name='topping[]' value='" . $topping . "' checked>" . $topping . "<br>";
-                            $checked = true;
-                            break;
-                        }
-                    }
-                    if (!$checked) {
-                        echo "<input type='checkbox' name='topping[]' value='" . $topping . "'>" . $topping . "<br>";
-                    }
-                }
-                ?><button>Save</button></div><?php
+            }
+            if (!$checked) {
+                echo "<input type='checkbox' name='topping[]' value='" . $topping . "'>" . $topping . "<br>";
+            }
+        }
+        ?><button>Save</button></div><?php
     }?>
     </form><?php
 }
@@ -205,30 +204,29 @@ function deleteView($data) {
 
     // buttons to confirm or cancel deletion
     // if confirmed, redirect to menu page with delete action
-    // if cancelled, redirect to menu page 
+    // if cancelled, redirect to menu page
     ?>
     <h1><a href="index.php">Original Pizza Place</a></h1>
     <h2>Delete Pie</h2>
     <form>
     <div>
         <p>Are you sure you want to delete <?=$data?>?</p>
-        
+
         <button><a href="index.php<?=processDeletePie($data)?>">Confirm</a></button>
         <button><a href="index.php">Cancel</a></button>
     </div>
     </form><?php
-            /*
-
-        ?> <h1><a href="index.php">Original Pizza Place</a></h1>
-        <h2>Delete Pie</h2>
-        <form>
-        <div>
-            <p>Are you sure you want to delete this pie?</p>
-            <button>Yes</button>
-            <button>No</button>
-        </div>
-        </form><?php
-        */
+    /*
+?> <h1><a href="index.php">Original Pizza Place</a></h1>
+<h2>Delete Pie</h2>
+<form>
+<div>
+    <p>Are you sure you want to delete this pie?</p>
+    <button>Yes</button>
+    <button>No</button>
+</div>
+</form><?php
+*/
 
 
 }
@@ -239,7 +237,7 @@ function detailView($pizza) {
     if(isset($_SESSION[$name]['views']))
         $_SESSION[$name]['views'] = $_SESSION[$name]['views']+1;
     else
-         $_SESSION[$name]['views'] = 1;
+        $_SESSION[$name]['views'] = 1;
     ?>
     <h1><a href="index.php">Original Pizza Place</a></h1>
     <?php
@@ -254,81 +252,81 @@ function detailView($pizza) {
     }
     echo "<h3>Price: $" . $price . "</h3>";
     echo "<ul>";
-        for ($i = 0; $i < count($toppings); $i++) {
-            echo "<li>" . $toppings[$i] . "</li>";
-        }
+    for ($i = 0; $i < count($toppings); $i++) {
+        echo "<li>" . $toppings[$i] . "</li>";
+    }
     echo "</ul>";
     ?>
     <style>
-    #pie {
-        position: absolute;
-        top: 400px;
-        left: 24px;
-        width: 200px;
-        height: 200px;
-        -webkit-border-radius: 25px;
-        -moz-border-radius: 25px;
-        border: 5px solid black;
-        border-radius: 150px;
-        background: bisque;
-    }
-    #red_sauce {
-        top: 415px;
-        left: 39px;
-        position: absolute;
-        width: 180px;
-        height: 180px;
-        border-radius: 150px;
-        background: darkred;
-    }
-    #cheese {
-        top: 423px;
-        left: 47px;
-        position: absolute;
-        width: 165px;
-        height: 165px;
-        border-radius: 150px;
-        background: lightyellow;
-    }
-    #pepperoni {
-        top: 455px;
-        left: 75px;
-        position: absolute;
-        width: 30px;
-        height: 30px;
-        border-radius: 150px;
-        background: red;
-    }
-    #ham {
-        font-size: 40px;
-        top: 445px;
-        left: 145px;
-        position: absolute;
-    }
-    #pineapple {
-        font-size: 45px;
-        top: 505px;
-        left: 155px;
-        position: absolute;
-    }
-    #green_pepper {
-        font-size: 40px;
-        top: 505px;
-        left: 62px;
-        position: absolute;
-    }
-    #mushroom {
-        font-size: 40px;
-        top: 535px;
-        left: 110px;
-        position: absolute;
-    }
-    #anchovies {
-        font-size: 40px;
-        top: 483px;
-        left: 110px;
-        position: absolute;
-    }
+        #pie {
+            position: absolute;
+            top: 400px;
+            left: 24px;
+            width: 200px;
+            height: 200px;
+            -webkit-border-radius: 25px;
+            -moz-border-radius: 25px;
+            border: 5px solid black;
+            border-radius: 150px;
+            background: bisque;
+        }
+        #red_sauce {
+            top: 415px;
+            left: 39px;
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 150px;
+            background: darkred;
+        }
+        #cheese {
+            top: 423px;
+            left: 47px;
+            position: absolute;
+            width: 165px;
+            height: 165px;
+            border-radius: 150px;
+            background: lightyellow;
+        }
+        #pepperoni {
+            top: 455px;
+            left: 75px;
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            border-radius: 150px;
+            background: red;
+        }
+        #ham {
+            font-size: 40px;
+            top: 445px;
+            left: 145px;
+            position: absolute;
+        }
+        #pineapple {
+            font-size: 45px;
+            top: 505px;
+            left: 155px;
+            position: absolute;
+        }
+        #green_pepper {
+            font-size: 40px;
+            top: 505px;
+            left: 62px;
+            position: absolute;
+        }
+        #mushroom {
+            font-size: 40px;
+            top: 535px;
+            left: 110px;
+            position: absolute;
+        }
+        #anchovies {
+            font-size: 40px;
+            top: 483px;
+            left: 110px;
+            position: absolute;
+        }
     </style>
     <div id="pie"></div>
     <?php
@@ -361,3 +359,4 @@ function detailView($pizza) {
 }
 
 ?>
+
