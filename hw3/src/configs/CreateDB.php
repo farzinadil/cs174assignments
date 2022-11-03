@@ -1,11 +1,15 @@
 <?php
+require "Config.php";
 // create mysql database with php table policy with fields title, agent email, duration, description
 
 // connect to mysql
-$server_name = "localhost";
-$user_name = "root";
-$password = "root";
-$connection = mysqli_connect($server_name, $user_name, $password);
+function developConnection($constants) {
+    $connection = mysqli_connect($constants->dbHost, $constants->dbUser, $constants->dbPassword);
+    return $connection;
+}
+
+$constants = new Constants("localhost", "root", "root");
+$connection = developConnection($constants);
 
 // check connection
 if (!$connection) {

@@ -8,3 +8,4 @@ $controller = (isset($_REQUEST['c']) && in_array($_REQUEST['c'],
         ["Landing", "Type", "Policy"])) ? $_REQUEST['c'] : "Landing";
 $controller = new $controller();
 
+?>
