@@ -7,4 +7,9 @@ class Model {
 
     }
 
+    function getQuizName() {
+        $quizName = "";
+        return $quizName;
+    }
+
 }

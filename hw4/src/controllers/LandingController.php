@@ -7,11 +7,17 @@ class LandingController extends Controller {
 
     private $model;
     private $view;
+    private $quizzes;
 
+    /**
+     * Creates a LandingController
+     * Gets all quizzes from model to display
+     * After that, create a new view obj and render the view
+     */
     function __construct() {
         $this->model = new LandingModel();
-        $quizzes = $this->model->getAllQuizzes();
-        $view = new LandingView($quizzes);
-        $view->render();
+        $this->quizzes = $this->model->getAllQuizzes();
+        $this->view = new LandingView($this->quizzes);
+        $this->view->render();
     }
 }
