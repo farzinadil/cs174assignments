@@ -11,8 +11,10 @@ if (isset($_GET['c'])) {
     switch($_GET['c']) {
         case "Stats":
             $run = new StatsController();
+            break;
         case "QuizPage":
             $run = new QuizPageController();
+            break;
     }
 } else { //Base case landing page
     $run = new LandingController();

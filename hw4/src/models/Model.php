@@ -7,8 +7,15 @@ class Model {
 
     }
 
+    /**
+     * Get the name of the quiz to display on page and url
+     */
     function getQuizName() {
-        $quizName = "";
+        $quizName; 
+        if (!isset($quizName)) { //For TESTING, need to read file name
+            $quizName = "Template";
+            return $quizName;
+        }
         return $quizName;
     }
 

@@ -23,7 +23,31 @@ class StatsView {
                     <option value=">20">> 20 years</option>
                 </select>
             </form>
-            <table></table>
+            <br>
+            <table>
+                <tr>
+                    <th>Word Rank Percentile</th>
+                    <th>% Correct</th>            
+                </tr>
+                <tr>
+                    <td>5%</td>
+                    <td>(Read data from file)</td>
+                </tr>
+                <?php
+                    $lower = 5;
+                    $upper = 10;
+                    $step = 0;
+                    while ($step < 19) {
+                        echo "<tr>";
+                        echo "<td>" . $lower . "%" . "-" . $upper . "%" . "</td>";
+                        echo "<td>" . $this->stats[$step] . "</td>";
+                        echo "</tr>";
+                        $step++;
+                        $lower += 5;
+                        $upper += 5;
+                    }
+                ?>
+            </table>
         </div>
         <?php
     }
