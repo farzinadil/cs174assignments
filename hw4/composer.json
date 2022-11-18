@@ -1,0 +1,9 @@
+{
+    "require": {
+    },
+    "autoload": {
+        "psr-4": {
+            "cs174assignments\\hw4\\": ["src/"]
+        }
+    }
+}
