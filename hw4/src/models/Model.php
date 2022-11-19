@@ -18,7 +18,7 @@ class Model {
 
             return $quizName;
         }
-        return $quizName;
+        return $_POST['quiz'];
     }
 
 }
