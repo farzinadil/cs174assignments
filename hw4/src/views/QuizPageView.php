@@ -27,13 +27,13 @@ class QuizPageView {
                     //Insert quiz problems here
                     // quiz problems come from data param
                     echo "<input type='checkbox' id='0' name='1stchoice'>";
-                    echo "<label for='1st'>" . $this->data[$index + rand(20, 40)] . "</label><br>";
+                    echo "<label for='1st'>" . $this->data[rand(20, 40)] . "</label><br>";
                     echo "<input type='checkbox' id='1' name='2ndchoice'>";
-                    echo "<label for='2nd'>" . $this->data[$index + rand(20, 40)] . "</label><br>";
+                    echo "<label for='2nd'>" . $this->data[rand(20, 40)] . "</label><br>";
                     echo "<input type='checkbox' id='2' name='3rdchoice'>";
                     echo "<label for='3rd'>" . $this->data[$index + 20] . "</label><br>";
                     echo "<input type='checkbox' id='3' name='4thchoice'>";
-                    echo "<label for='4th'>" . $this->data[$index + rand(20, 40)] . "</label><br>";
+                    echo "<label for='4th'>" . $this->data[rand(20, 40)] . "</label><br>";
                     echo "</form>";
                     $numbers++;
                 }
