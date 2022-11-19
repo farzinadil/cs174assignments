@@ -16,14 +16,13 @@ class QuizPageView {
     function render() {
         require_once('src/views/layouts/header.php');
         // displays the quiz name
-        echo "/" . $_POST['quiz'] . "</h1>";
+        echo "/" . $this->quizName . "</h1>";
         ?>
         <p>Select the words that could be used to fill in the blank (at least one should work).</p>
             <?php
-                $answerArr = array();
                 $numbers = 1;
                 for ($index = 0; $index < $this->numberOfQuestions; $index++){                  
-                    echo "<form id='questions$numbers' action='GET'>";
+                    echo "<form id='questions$numbers' method='POST'>";
                     echo "<p>" . $numbers . ". " . $this->data[$index] . "</p>";
                     //Insert quiz problems here
                     // quiz problems come from data param
@@ -34,26 +33,44 @@ class QuizPageView {
                     echo "<input type='checkbox' id='2' name='3rdchoice'>";
                     echo "<label for='3rd'>choice 3</label><br>";
                     echo "<input type='checkbox' id='3' name='4thchoice'>";
-                    numbers++;
+                    echo "<label for='4th'>choice 4</label><br>";
+                    echo "</form>";
+                    $numbers++;
                 }
                 echo "<br>";
             ?>
             <script type="text/javascript">
                 function onClick() {
-                    let answers = 0;
-                    for (let i = 1; i < 21; i++){
-                        let element = document.getElementById(`questions${i}`);
-                        for (const child of element.children) {
-                            if (child.type == 'checkbox' && child.checked)
-                            answers++;
+                    let answers = [];
+                    // for each question (20)
+                    for (let i = 0; i < 20; i++) {
+                        let element = document.getElementById(`questions${i+1}`);
+                        let children = element.children;
+                        answers.push([]);
+                        let hasAtleastOneChecked = false;
+                        let iterator = 0;
+                        
+                        // for each possible answer
+                        for (let j = 1; j < children.length-1; j+=3) {
+                            let child = children[j];
+                            if (child.type == 'checkbox') {
+                                if (child.checked) {
+                                    answers[i][iterator] = true;
+                                    hasAtleastOneChecked = true;
+                                } else {
+                                    answers[i][iterator] = false;
+                                }
+                                iterator++;
+                            }
+                            
+                        }
+                        if (hasAtleastOneChecked == false) {
+                            alert("You must check at least one answer per question.")
+                            return false;
                         }
                     }
-                    if (!(answers >= 20)) {
-                        alert("You must answer each question with at least one solution.")
-                        return false;
-                    } else {
-                        return true;
-                    }
+                    console.log(answers);
+                    return answers;
                     
                 }
                 
