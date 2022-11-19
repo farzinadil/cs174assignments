@@ -25,6 +25,8 @@ $quiz = [];
 foreach ($wordcount as $word => $count) {
     foreach ($sentences as $sentence) {
         if (strpos($sentence, $word) !== false) {
+            // replace the word with a blank
+            $sentence = str_replace($word, "_____", $sentence);
             $quiz[] = $sentence;
             break 1;
         }
