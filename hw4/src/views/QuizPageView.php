@@ -13,7 +13,12 @@ class QuizPageView {
 
     function render() {
         require_once('src/views/layouts/header.php');
+<<<<<<< Updated upstream
             echo "/" . $this->quizName . "</h1>";
+=======
+        // displays the quiz name
+        echo "/" . $_POST['quiz'] . "</h1>";
+>>>>>>> Stashed changes
         ?>
         <p>Select the words that could be used to fill in the blank (at least one should work).</p>
             <?php

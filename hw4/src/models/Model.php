@@ -11,12 +11,11 @@ class Model {
      * Get the name of the quiz to display on page and url
      */
     function getQuizName() {
-        $quizName; 
-        if (!isset($quizName)) { //For TESTING, need to read file name
-            $quizName = "Template";
+        if (!isset($_POST['quiz'])) { //For TESTING, need to read file name
+            $quizName = "template";
             return $quizName;
         }
-        return $quizName;
+        return $_POST['quiz'];
     }
 
 }
