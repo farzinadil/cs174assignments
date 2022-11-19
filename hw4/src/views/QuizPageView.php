@@ -23,7 +23,7 @@ class QuizPageView {
                 $numbers = 1;
                 for ($index = 0; $index < $this->numberOfQuestions; $index++){                  
                     echo "<form id='questions$numbers' method='POST'>";
-                    echo "<p>" . $index . ". " . $this->data[$index] . "</p>";
+                    echo "<p>" . $numbers . ". " . $this->data[$index] . "</p>";
                     //Insert quiz problems here
                     // quiz problems come from data param
                     echo "<input type='checkbox' id='0' name='1stchoice'>";
