@@ -1,0 +1,13 @@
+Issues:
+
+1. Quizmaker - read files, split files, and create quizzes (Farzin)
+
+2. MVC setup - create a basic MVC setup (Jeff)
+
+3. Landing page javascript - create a basic landing page with javascript menus (Jeff)
+
+4. I need to store the quiz results for each question in an array so we can reference it later to check answers. (Luke)
+
+5. I need to validate that for each question, at least one answer is checked when the submit is clicked. (Luke)
+
+6. I need to get all of these forms with a unique name, so I can reference them later in the JS. (Luke)
