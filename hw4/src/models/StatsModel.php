@@ -9,17 +9,26 @@ class StatsModel extends Model {
      * Gets all the stats from the QuiaStatistics.txt file
      */
     function getStatsData() {
-        $stats;
-        if (!isset($stats)) { //For testing
+        if (!file_exists(STATS_FILE)) { //For testing
+            $stats;
             for ($i = 0; $i < 20; $i++) {
                 $stats[$i] = "..";
             }
             return $stats;
         }
-        return $stats;
+        $entries = unserialize(file_get_contents(STATS_FILE));
+        return $entries;
+    }
+
+    function quizAnswers() {
+        return [];
     }
 
     function enterNewStats() {
+        if
+    }
+
+    function answerChecker() {
 
     }
 }
