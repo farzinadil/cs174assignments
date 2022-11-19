@@ -9,7 +9,7 @@
 
 // loop through each subfolder in the folder named "data"
 // read englishdata.txt text file and strip any HTML/XML tags, and lower case this string
-$englishdata = file_get_contents('data/english/englishdata.txt');
+$englishdata = file_get_contents('../data/english/englishdata.txt');
 
 // Then split the string into an array of sentences
 $sentences = preg_split('/(?<=[.?!])\s+(?=[a-z])/i', $englishdata);
@@ -20,19 +20,26 @@ $wordcount = array_count_values(str_word_count($englishdata, 1));
 // Then sort the array by the number of times each word appears
 arsort($wordcount);
 
-// Then add 20 sentences of the most common words to the quiz
-$quiz = array_slice($sentences, 0, 20);
+// Then loop through the array and add 20 sentences of the most common words to the quiz array
+$quiz = [];
+foreach ($wordcount as $word => $count) {
+    foreach ($sentences as $sentence) {
+        if (strpos($sentence, $word) !== false) {
+            $quiz[] = $sentence;
+            break 1;
+        }
+    }
+    if (count($quiz) >= 20) {
+        break;
+    }
+}
 
-// Then write the array to a text file named english.txt
-file_put_contents('english.txt', implode('', $quiz));
 
+//$quiz = array_slice($sentences, 0, 20);
+file_put_contents('../quizes/english.txt', implode("\n", $quiz));
 
-
-
-
-
-
-
+// output words to a text file named english-ansers.txt
+file_put_contents('../quizes/english-answers.txt', implode("\n", array_keys($wordcount)));
 
 
 ?>
