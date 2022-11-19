@@ -34,12 +34,18 @@ foreach ($wordcount as $word => $count) {
     }
 }
 
+// add words in the wordcount array to the quiz array
+foreach ($wordcount as $word => $count) {
+    $quiz[] = $word;
+}
+
+
 
 //$quiz = array_slice($sentences, 0, 20);
 file_put_contents('../quizes/english.txt', implode("\n", $quiz));
 
 // output words to a text file named english-ansers.txt
-file_put_contents('../quizes/english-answers.txt', implode("\n", array_keys($wordcount)));
+//file_put_contents('../quizes/english-answers.txt', implode("\n", array_keys($wordcount)));
 
 
 ?>
