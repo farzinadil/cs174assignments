@@ -3,32 +3,38 @@ namespace cs174assignments\hw4\src\models;
 
 class StatsModel extends Model {
 
-    const STATS_FILE = "QuizStatistics.txt";
-
     /**
      * Gets all the stats from the QuiaStatistics.txt file
      */
     function getStatsData() {
-        if (!file_exists(STATS_FILE)) { //For testing
-            $stats;
-            for ($i = 0; $i < 20; $i++) {
-                $stats[$i] = "..";
-            }
-            return $stats;
+        $statsData = file(dirname(__FILE__) . '/../../QuizStatistics.txt');
+        if ($statsData) { //For testing
+            $entries = unserialize($statsData);
+            return $entries;
         }
-        $entries = unserialize(file_get_contents(STATS_FILE));
-        return $entries;
+        $stats = array();
+        for ($i = 0; $i < 20; $i++) {
+            $stats[$i] = "...";
+        }
+        return $stats;
     }
 
-    function quizAnswers() {
-        return [];
+    function checkQuizAnswers() {
+        if (isset($_POST["a"])) {
+            echo "No Quiz Taken";
+            return "";
+        }
+        $answers = $_POST["a"];
+        $key = array(); //Need to insert key
+        for ($i = 0; $i < 20; $i++) {
+            if ($answers[$i] == $key[$i]) {
+                //Record the correctness respective to the word rank
+            }
+        }
+        return []; //Maybe return the work rank array
     }
 
     function enterNewStats() {
-        if
-    }
-
-    function answerChecker() {
-
+        
     }
 }

@@ -23,17 +23,17 @@ class QuizPageView {
                 $numbers = 1;
                 for ($index = 0; $index < $this->numberOfQuestions; $index++){                  
                     echo "<form id='questions$numbers' method='POST'>";
-                    echo "<p>" . $index . ". " . $this->data[$index] . "</p>";
+                    echo "<p>" . $numbers . ". " . $this->data[$index] . "</p>";
                     //Insert quiz problems here
                     // quiz problems come from data param
                     echo "<input type='checkbox' id='0' name='1stchoice'>";
-                    echo "<label for='1st'>" . $this->data[$index + rand(20, 40)] . "</label><br>";
+                    echo "<label for='1st'>" . $this->data[rand(20, 40)] . "</label><br>";
                     echo "<input type='checkbox' id='1' name='2ndchoice'>";
-                    echo "<label for='2nd'>" . $this->data[$index + rand(20, 40)] . "</label><br>";
+                    echo "<label for='2nd'>" . $this->data[rand(20, 40)] . "</label><br>";
                     echo "<input type='checkbox' id='2' name='3rdchoice'>";
                     echo "<label for='3rd'>" . $this->data[$index + 20] . "</label><br>";
                     echo "<input type='checkbox' id='3' name='4thchoice'>";
-                    echo "<label for='4th'>" . $this->data[$index + rand(20, 40)] . "</label><br>";
+                    echo "<label for='4th'>" . $this->data[rand(20, 40)] . "</label><br>";
                     echo "</form>";
                     $numbers++;
                 }
@@ -75,8 +75,8 @@ class QuizPageView {
                 }
                 
             </script>
-        <form>
-            <button onclick="return onClick();">Submit</button>
+        <form action="index.php?c=Stats" method="POST">
+            <button name="a" onclick="return onClick();">Submit</button>
         </form>
         <?php
     }
