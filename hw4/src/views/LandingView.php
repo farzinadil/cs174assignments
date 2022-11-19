@@ -18,20 +18,28 @@ class LandingView {
     function render() {
         require_once('src/views/layouts/header.php');
         ?>
-            <form>
-            </h1>
-                <select name="quiz" id="quiz"> <?php
-                echo "<option value='' disabled selected>Choose a quiz</option>";
-                foreach($this->quiz as $q) {
-                    echo "<option value=" . $q . ">" . $q . "</option>";
-                }
-                ?>
-                </select>
-                <p>Years Experience:</p>
-                <input type="number" name="years" id="years" required>
+        </h1>
+        <div>
+        <form action="index.php?c=QuizPage" method="POST">
+            <select name="quiz" id="quiz"> <?php
+             echo "<option value='template'>Choose a quiz</option>";
+            foreach($this->quiz as $q) {
+                echo "<option value=" . $q . ">" . $q . "</option>";
+            }                
+            ?>
+            </select>
+            <p>Years Experience:</p>
+            <input type="number" name="years" id="years" required>
             <br></br>
-            <button><a style="text-decoration: none; color: inherit;" href="index.php?c=QuizPage">Start Quiz</a></button>
-            <button><a style="text-decoration: none; color: inherit;" href="index.php?c=Stats">See Results</a></button>
+            <?php
+            if(isset($_GET["quiz"])) {
+                $selected = $_GET["quiz"];
+            } else {
+                $selected = "n/a";
+            }
+            ?>
+            <button>Start Quiz</button>
+            <button formaction="index.php?c=Stats">See Results</button>
             </form>
         </div>
         <?php
