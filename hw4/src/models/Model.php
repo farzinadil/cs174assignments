@@ -13,7 +13,9 @@ class Model {
     function getQuizName() {
         $quizName; 
         if (!isset($quizName)) { //For TESTING, need to read file name
-            $quizName = "Template";
+            // set quiz name to the name of the text file in the quizes folder
+            $quizName = "english";
+
             return $quizName;
         }
         return $quizName;

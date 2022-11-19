@@ -9,9 +9,8 @@ class QuizPageModel extends Model {
     function getQuizData($quizname) {
         $data;
         if (!isset($data)) { //For Testing
-            for ($i = 0; $i < 20; $i++) {
-                $data[$i] = "(Insert Sentence Problems)";
-            }
+            // add each line of the text file in quizes folder to an array
+            $data = file(dirname(__FILE__) . '/../../quizes/' . $quizname . '.txt');
             return $data;
         }
         return $data;
