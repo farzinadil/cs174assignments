@@ -1,4 +1,5 @@
 <?php
+namespace cs174assignments\hw4\src\executables;
 
 // read englishdata.txt text file and strip any HTML/XML tags, and lower case this string
 // Then split the string into an array of words
@@ -25,6 +26,8 @@ $quiz = [];
 foreach ($wordcount as $word => $count) {
     foreach ($sentences as $sentence) {
         if (strpos($sentence, $word) !== false) {
+            // replace the word with a blank
+            $sentence = str_replace($word, "_____", $sentence);
             $quiz[] = $sentence;
             break 1;
         }
@@ -47,6 +50,16 @@ file_put_contents('../quizes/english.txt', implode("\n", $quiz));
 // output words to a text file named english-ansers.txt
 //file_put_contents('../quizes/english-answers.txt', implode("\n", array_keys($wordcount)));
 
+use Monolog\Level;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
+use Monolog\Handler\FirePHPHandler;
+
+$logger = new Logger('my_logger');
+$logger->pushHandler(new StreamHandler(__DIR__.'/quiz_maker.log', Level::Debug));
+$logger->pushHandler(new FirePHPHandler());
+
+$logger->info('All quiz processed');
 
 ?>
 
