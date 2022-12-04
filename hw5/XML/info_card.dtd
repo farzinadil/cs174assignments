@@ -1,0 +1,20 @@
+<?xml version = "1.0" encoding ="utf-8" ?>
+<!-- info_card -->
+<!ELEMENT info_card (ad+) >
+<!ELEMENT ad (name, address, quiz_response) >
+<!ELEMENT year (#PCDATA)>
+<!ELEMENT address (#PCDATA)>
+<!ELEMENT quiz_response_1 (#PCDATA)>
+<!ELEMENT quiz_response_2 (#PCDATA)>
+<!ELEMENT quiz_response_3 (#PCDATA)>
+<!ELEMENT quiz_response_4 (#PCDATA)>
+<!ELEMENT quiz_response_5 (#PCDATA)>
+<!ELEMENT quiz_response_6 (#PCDATA)>
+<!ELEMENT quiz_response_7 (#PCDATA)>
+<!ELEMENT quiz_response_8 (#PCDATA)>
+<!ELEMENT quiz_response_9 (#PCDATA)>
+<!ELEMENT quiz_response_10 (#PCDATA)>
+
+
+
+
