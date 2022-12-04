@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE info_card SYSTEM "info_card.dtd" >
+<info_card>
+    <ad>
+        <name>Jeff Bob</name>
+        <address>13579 Main Street</address>
+        <quiz_response_1>yes</quiz_response_1>
+        <quiz_response_2>yes</quiz_response_2>
+        <quiz_response_3>yes</quiz_response_3>
+        <quiz_response_4>no</quiz_response_4>
+        <quiz_response_5>no</quiz_response_5>
+        <quiz_response_6>no</quiz_response_6>
+        <quiz_response_7>yes</quiz_response_7>
+        <quiz_response_8>no</quiz_response_8>
+        <quiz_response_9>yes</quiz_response_9>
+        <quiz_response_10>no</quiz_response_10>
+    </ad>
+</info_card>
