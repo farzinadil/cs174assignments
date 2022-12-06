@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import axios from 'axios';
+import Cookies from 'react-cookies';
 
 
 // login page with link to create account page
@@ -17,10 +18,14 @@ const Login = () => {
       })
       .then((response) => {
         if (response.data.success) {
+          Cookies.save('username', username);
+          Cookies.save('password', password);
           setIsAuthenticated(true);
         }
       })
       .catch((error) => {
+        Cookies.save('username', username);
+        Cookies.save('password', password);
         setIsAuthenticated(true);
         console.error(error);
       });
