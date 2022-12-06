@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
+import Cookies from 'react-cookies';
 
 const HomePage = () => {
   const [suggestedDate, setSuggestedDate] = useState('');
+  const username = Cookies.load('username');
+
 
   useEffect(() => {
-    fetch('localhost:8888/match')
+    fetch(`localhost:8888/match?username=${username}`)
       .then((response) => response.json())
       .then((data) => {
-        suggestedDate(data.name);
+        setSuggestedDate(data.name);
       });
   }, []);
 
