@@ -11,7 +11,7 @@ const HomePage = () => {
     fetch(`localhost:8888/match?username=${username}`)
       .then((response) => response.json())
       .then((data) => {
-        setSuggestedDate(data.name);
+        setSuggestedDate(data.userName);
       });
   }, []);
 
