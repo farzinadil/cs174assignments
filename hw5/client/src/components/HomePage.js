@@ -6,19 +6,17 @@ const HomePage = () => {
   const [suggestedDate, setSuggestedDate] = useState('');
 
   useEffect(() => {
-    axios.get('localhost:8888/match')
-      .then((response) => {
-        setSuggestedDate(response.data.name);
-      })
-      .catch((error) => {
-        console.error(error);
+    fetch('localhost:8888/match')
+      .then((response) => response.json())
+      .then((data) => {
+        suggestedDate(data.name);
       });
   }, []);
 
   return (
     <div>
       <h1>Suggested Date</h1>
-      <p>{suggestedDate}</p>
+      <p>{suggestedDate ? suggestedDate : "sorry no person left to suggest" }</p>
       <Link to="/Login"> <button>Sign Out</button></Link>
     </div>
   );
