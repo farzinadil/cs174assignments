@@ -26,7 +26,7 @@ connection.query('USE DatingUsers',
         }
  );
 
- connection.query("CREATE TABLE `DateUsers`.`Users` ( `username` VARCHAR(255) NOT NULL , `password` VARCHAR(255) NOT NULL , `normalvector` VARCHAR(255) NOT NULL , `response1` VARCHAR(255) NOT NULL , `response2` VARCHAR(255) NOT NULL , `response3` VARCHAR(255) NOT NULL , `response4` VARCHAR(255) NOT NULL , `response5` VARCHAR(255) NOT NULL , `response6` VARCHAR(255) NOT NULL , `response7` VARCHAR(255) NOT NULL , `response8` VARCHAR(255) NOT NULL , `response9` VARCHAR(255) NOT NULL , `response10` VARCHAR NOT NULL );",
+ connection.query("CREATE TABLE `DateUsers`.`Users` ( `userName` VARCHAR(255) NOT NULL , `userPassword` VARCHAR(255) NOT NULL , `emailAddress` VARCHAR(255) NOT NULL , `quizResults` INT NOT NULL )",
         (error, results, fields) => {
             if (error) {
                 throw error;
