@@ -1,22 +1,24 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom'
+import { Navigate } from 'react-router-dom';
+
 
 
 const CreateAccount = () => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [questionOne, setQuestionOne] = useState('');
-    const [questionTwo, setQuestionTwo] = useState('');
-    const [questionThree, setQuestionThree] = useState('');
-    const [questionFour, setQuestionFour] = useState('');
-    const [questionFive, setQuestionFive] = useState('');
-    const [questionSix, setQuestionSix] = useState('');
-    const [questionSeven, setQuestionSeven] = useState('');
-    const [questionEight, setQuestionEight] = useState('');
-    const [questionNine, setQuestionNine] = useState('');
-    const [questionTen, setQuestionTen] = useState(''); 
-    
+  const [isComplete, setIsComplete] = useState(false);
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [questionOne, setQuestionOne] = useState('');
+  const [questionTwo, setQuestionTwo] = useState('');
+  const [questionThree, setQuestionThree] = useState('');
+  const [questionFour, setQuestionFour] = useState('');
+  const [questionFive, setQuestionFive] = useState('');
+  const [questionSix, setQuestionSix] = useState('');
+  const [questionSeven, setQuestionSeven] = useState('');
+  const [questionEight, setQuestionEight] = useState('');
+  const [questionNine, setQuestionNine] = useState('');
+  const [questionTen, setQuestionTen] = useState(''); 
+  
 
     
 
@@ -38,11 +40,17 @@ const CreateAccount = () => {
     })
     .then((response) => {
       console.log(response);
+      setIsComplete(true);
     })
     .catch((error) => {
+      setIsComplete(true);
       console.error(error);
     });
   };
+  if (isComplete) {
+    console.log('isComplete');
+    return <Navigate to="/Login"> </Navigate> ;
+  }
 
   return (
     <form onSubmit={handleSubmit}>
@@ -239,7 +247,8 @@ const CreateAccount = () => {
       <br></br> 
       <button type="submit">Save</button>
       <br></br>
-      <Link to = '/HomePage'><button type="submit">Login</button></Link>
+      
+      
 
       
     </form>

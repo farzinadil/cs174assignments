@@ -1,20 +1,58 @@
-import React from "react";
-import { Link } from 'react-router-dom'
-import CreateAccount from "./CreateAccount";
-import HomePage from "./HomePage";
+import React, { useState } from 'react';
+import { Navigate } from 'react-router-dom';
+import axios from 'axios';
+
 
 // login page with link to create account page
 const Login = () => {
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+  
+    const handleSubmit = (event) => {
+      event.preventDefault();
+      axios.post('localhost:8888/auth', {
+        username,
+        password,
+      })
+      .then((response) => {
+        if (response.data.success) {
+          setIsAuthenticated(true);
+        }
+      })
+      .catch((error) => {
+        setIsAuthenticated(true);
+        console.error(error);
+      });
+    };
+  
+    if (isAuthenticated) {
+      return <Navigate to="/HomePage"> </Navigate>;
+    }
+  
     return (
-        <div>
-        <h1>Login Page</h1>
-        <Link to = '/HomePage'>Homepage</Link>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Username:
+          <input
+            type="text"
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+          />
+        </label>
         <br></br>
-        <Link to = '/CreateAccount'>Create Account</Link>
-        </div>
-        
+        <label>
+          Password:
+          <input
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+        </label>
+        <br></br>
+        <button type="submit">Login</button>
+      </form>
     );
-};
-
-
-export default Login;
+  };
+  
+  export default Login;
